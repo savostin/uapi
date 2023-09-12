@@ -14,24 +14,17 @@ services:
     ports:
       - "${DATABASE_PORT}:5432"
   node:
-    build:
-      context: ./deploy
-      dockerfile: Dockerfile
-    image: uapi
+    image: alpine:latest
     hostname: app
     depends_on: 
       - "postgres"
     restart: always
     volumes:
       - ./:/app
+      - ./deploy/entrypoint.sh:/entrypoint.sh:ro
+    working_dir: /app
     ports:
       - "8181:8181"
     ulimits:
       memlock: -1
-    command:
-      - /bin/sh
-      - -c
-      - |
-        npm install
-        npm run start:dev
-
+    command: ["/bin/sh", "/entrypoint.sh"]

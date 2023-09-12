@@ -9,5 +9,8 @@
         "name": "@nestjs/graphql"
       }
     ]
-  }
+  },
+  "include": [
+    "src"
+  ]
 }
