@@ -3,18 +3,18 @@ name: uapi
 services:
   postgres:
     image: postgres:latest
-    hostname: postgres
+    hostname: ${DATABASE_HOST}
     restart: always
     environment:
-      - POSTGRES_USER=username
-      - POSTGRES_PASSWORD=pa$$W0r!d
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     volumes:
       - ./postgres:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "${DATABASE_PORT}:5432"
   node:
     build:
-      context: ./app
+      context: ./deploy
       dockerfile: Dockerfile
     image: uapi
     hostname: app
@@ -22,7 +22,7 @@ services:
       - "postgres"
     restart: always
     volumes:
-      - ../:/app
+      - ./:/app
     ports:
       - "8181:8181"
     ulimits:
