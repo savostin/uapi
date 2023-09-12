@@ -1,0 +1,36 @@
+version: "3.8"
+name: uapi
+services:
+  postgres:
+    image: postgres:latest
+    hostname: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=pa$$W0r!d
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  node:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: uapi
+    hostname: app
+    depends_on: 
+      - "postgres"
+    restart: always
+    volumes:
+      - ../:/app
+    ports:
+      - "8181:8181"
+    ulimits:
+      memlock: -1
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npm install
+        npm run start:dev
+
