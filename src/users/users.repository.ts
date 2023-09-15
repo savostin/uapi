@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
-//@Injectable()
+@Injectable()
 export class UsersRepository {
-  private readonly prisma: PrismaClient = new PrismaClient();
+  constructor(private readonly prisma: PrismaClient) {}
   update = this.prisma.user.update;
   findUnique = this.prisma.user.findUnique;
   findMany = this.prisma.user.findMany;

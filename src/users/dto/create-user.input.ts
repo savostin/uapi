@@ -1,14 +1,17 @@
 import { ArgsType } from '@nestjs/graphql';
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsDefined } from 'class-validator';
 
 @ArgsType()
 export class CreateUserInput {
+  @IsDefined()
   @IsNotEmpty()
-  firstName: string;
+  firstName!: string;
 
+  @IsDefined()
   @IsNotEmpty()
-  lastName: string;
+  lastName!: string;
 
+  @IsDefined()
   @IsEmail()
-  email: string;
+  email!: string;
 }
