@@ -15,6 +15,8 @@ function randomEnum<T>(anEnum: T): T[keyof T] {
 }
 
 async function main() {
+  // delete old
+  await prisma.user.deleteMany();
   // create dummy users
   for (let i = 0; i < USERS_COUNT; i++) {
     const firstName = faker.person.firstName();

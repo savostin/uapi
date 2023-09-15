@@ -9,6 +9,11 @@ services:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=${DATABASE_DB}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     volumes:
       - ./postgres:/var/lib/postgresql/data
     ports:
@@ -16,15 +21,16 @@ services:
   node:
     image: alpine:latest
     hostname: app
-    depends_on: 
-      - "postgres"
+    depends_on:
+      postgres:
+        condition: service_healthy
     restart: always
     volumes:
       - ./:/app
       - ./deploy/entrypoint.sh:/entrypoint.sh:ro
     working_dir: /app
     ports:
-      - "8181:8181"
+      - "${APP_PORT}:8181"
     ulimits:
       memlock: -1
-    command: ["/bin/sh", "/entrypoint.sh"]
+    command: [ "/bin/sh", "/entrypoint.sh" ]
