@@ -14,7 +14,7 @@ import {
 describe('UsersService', () => {
   let service: UsersService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [],
       providers: [
