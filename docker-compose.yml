@@ -4,6 +4,7 @@ services:
   postgres:
     image: postgres:latest
     hostname: ${DATABASE_HOST}
+    container_name: uapi.db
     restart: always
     environment:
       - POSTGRES_USER=${DATABASE_USER}
@@ -11,8 +12,8 @@ services:
       - POSTGRES_DB=${DATABASE_DB}
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER}" ]
-      interval: 5s
-      timeout: 5s
+      interval: 15s
+      timeout: 15s
       retries: 10
     volumes:
       - ./postgres:/var/lib/postgresql/data
@@ -21,6 +22,7 @@ services:
   node:
     image: alpine:latest
     hostname: app
+    container_name: uapi.app
     depends_on:
       postgres:
         condition: service_healthy
