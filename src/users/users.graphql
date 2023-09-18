@@ -1,53 +1,87 @@
+# User Status
 enum UserStatus {
+  "User just created and have not confirmed/activated"
   CREATED
+  "User is active"
   ACTIVE
+  "User is disabled or banned"
   DISABLED
 }
 
+"Sorting order for listUsers query"
 enum GetUsersOrder {
+  "Last Name field ascending"
   lastNameAsc
+  "Last updated field ascending"
   updatedAtAsc
+  "Last updated field descending"
   updatedAtDesc
 }
 
+"The user type"
 type User {
+  "User unique ID (UUID)"
   id: String!
+  "[REQUIRED] User first name - non-empty alphabet string"
   firstName: String!
+  "[REQUIRED] User last name - non-empty alphabet string"
   lastName: String!
+  "[REQUIRED] User email - a valid e-mail"
   email: String!
+  "[REQUIRED] User status - CREATED by default"
   status: UserStatus!
 }
 
+"Input data for createUser mutation"
 input CreateUserInput {
+  "[REQUIRED] User first name - non-empty alphabet string"
   firstName: String!
+  "[REQUIRED] User last name - non-empty alphabet string"
   lastName: String!
+  "[REQUIRED] User email - a valid e-mail"
   email: String!
 }
 
+"Input data for updateUser mutation"
 input UpdateUserInput {
+  "[REQUIRED] User unique ID (UUID)"
   id: String!
+  "[OPTIONAL] User first name - non-empty alphabet string"
   firstName: String
+  "[OPTIONAL] User last name - non-empty alphabet string"
   lastName: String
+  "[OPTIONAL] User email - a valid e-mail"
   email: String
 }
 
+"Input data for getUsers query (user search)"
 input GetUsersInput {
+  "[OPTIONAL] User first name partialy match"
   firstName: String
+  "[OPTIONAL] User last name partialy match"
   lastName: String
+  "[OPTIONAL] User email partialy match"
   email: String
+  "[OPTIONAL] User status - enum type"
   status: UserStatus
+  "[OPTIONAL] sorting order - enum type, default updatedAtDesc"
   orderBy: GetUsersOrder = updatedAtDesc
-  skip: Int
-  return: Int
+  "[OPTIONAL] Pagination - skip N records, default 0"
+  skip: Int = 0
+  "[OPTIONAL] Pagination - return N records, default 50, max 50"
+  return: Int = 50
 }
-
 
 type Query {
-  listUsers(getUsersInput: GetUsersInput!): [User]
-  getUser(id: String!): User
+  "Users search. Returns array of User type"
+  listUsers("User search criteria" getUsersInput: GetUsersInput!): [User]
+  "Get User by id. Returns User type"
+  getUser("User unique ID (UUID)" id: String!): User
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  "Create new user. Returns created User type"
+  createUser("User creation data" createUserInput: CreateUserInput!): User!
+  "Update user by ID. Returns updated User type"
+  updateUser("User update data" updateUserInput: UpdateUserInput!): User!
 }
