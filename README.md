@@ -18,7 +18,7 @@ The API is a NetsJS application written in Typescript and using:
 
 * Copy file **.env.example** to **.env**
 * Install Docker and Docker Compoe plugin.
-* Run ```docker compose up -d``` in the project root dir. Wait copuple of minutes to install, start and seed DB.
+* Run ```docker compose up -d``` in the project root dir. Wait couple of minutes to install, start and seed DB.
 * Open http://127.0.0.1:8080/graphql for GraphQL Playgraound UI. Use Docs and Schema tabs for the API documentation.
 
 ### Query examples
@@ -83,7 +83,7 @@ Open docker container terminal with
 
 ### Notes and todos
 * Error handler is a default Apollo handler. Should be more specific to the project and well documented.
-* No app logger has been implemented
-* UsersRepository should be implemented with an interface
+* No app logger has been implemented.
+* UsersRepository should be implemented with an interface.
 * The unit and e2e tests are basic only. There are more to add especially for edge cases.
 * There is no production deployment.
