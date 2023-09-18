@@ -11,9 +11,16 @@ import {
   goodUsers,
 } from './users.repository.dummy';
 
+/**
+ * Users Service Tests
+ *
+ */
 describe('UsersService', () => {
   let service: UsersService;
 
+  /**
+   * Inits Users Module and injects Dummy Users Repository
+   */
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [],
@@ -21,7 +28,7 @@ describe('UsersService', () => {
         UsersService,
         {
           provide: UsersRepository,
-          useValue: UsersDummyRepository,
+          useValue: UsersDummyRepository /** Dummy Repository */,
         },
       ],
     }).compile();

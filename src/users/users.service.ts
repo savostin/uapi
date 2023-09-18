@@ -5,9 +5,25 @@ import { GetUsersInput } from './dto/get-users.input';
 import { GetUsersOrder } from '../graphql';
 import { UsersRepository } from './users.repository';
 
+/**
+ * Users Service
+ *
+ * @export
+ * @class UsersService
+ * @typedef {UsersService}
+ */
 @Injectable()
 export class UsersService {
-  constructor(private readonly repository: UsersRepository) {}
+  constructor(
+    private readonly repository: UsersRepository,
+  ) {} /** Don't forget injecting UserRepository */
+
+  /**
+   * CreateUser
+   *
+   * @param {CreateUserInput} createUserInput
+   * @returns {*}
+   */
   create(createUserInput: CreateUserInput) {
     return this.repository.create({
       data: {
@@ -18,6 +34,14 @@ export class UsersService {
     });
   }
 
+  /**
+   * Update User
+   * Constructs query based on GetUsersInput
+   * TODO: refactor
+   *
+   * @param {GetUsersInput} getUsersInput
+   * @returns {*}
+   */
   findAll(getUsersInput: GetUsersInput) {
     const and: object[] = ['email', 'firstName', 'lastName', 'status'].map(
       (k) => {

@@ -4,6 +4,16 @@ import { UsersResolver } from './users.resolver';
 import { UsersRepository } from './users.repository';
 import { PrismaClient } from '@prisma/client';
 
+/**
+ * Users module
+ *
+ * Expects injected Prisma Client
+ * Exports: Users Service
+ *
+ * @export
+ * @class UsersModule
+ * @typedef {UsersModule}
+ */
 @Module({
   imports: [],
   providers: [

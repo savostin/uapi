@@ -1,6 +1,12 @@
 import * as crypto from 'crypto';
 import { UserStatus } from '@prisma/client';
 
+/**
+ * Dummy Users repository for tests
+ *
+ *
+ */
+
 export const oneUserUUID = crypto.randomUUID();
 export const oneUser = {
   firstName: 'First',
@@ -15,6 +21,9 @@ export const oneUserFull = {
   updatedAt: new Date(),
 };
 
+/**
+ * Predefined list of users
+ */
 export const goodUsers = [
   oneUserFull,
   {
@@ -55,6 +64,9 @@ export const goodUsers = [
   },
 ];
 
+/**
+ * New user to create
+ */
 export const newUser = {
   id: oneUserUUID,
   firstName: 'John',
@@ -62,6 +74,9 @@ export const newUser = {
   email: 'john.doe@mail.com',
 };
 
+/**
+ * New user must be returned
+ */
 export const newUserFull = {
   ...newUser,
   status: oneUserFull.status,
@@ -69,6 +84,10 @@ export const newUserFull = {
   updatedAt: oneUserFull.updatedAt,
 };
 
+/**
+ * The repository
+ * TODO: create RepositoryInterface (!)
+ */
 export const UsersDummyRepository = {
   update: jest.fn().mockResolvedValue(newUserFull),
   findUnique: jest.fn().mockResolvedValue(oneUserFull),

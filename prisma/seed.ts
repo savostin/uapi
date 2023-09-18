@@ -3,11 +3,17 @@
 import { PrismaClient, UserStatus } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 
-// initialize Prisma Client
+/**
+ * Seed database with dummy initial data
+ *
+ */
+
 const prisma = new PrismaClient();
 
+/** Number of users to insert */
 const USERS_COUNT = 10;
 
+/** Returns a random value of any ENUM type */
 function randomEnum<T>(anEnum: T): T[keyof T] {
   const enumValues = Object.values(anEnum) as unknown as T[keyof T][];
   const randomIndex = Math.floor(Math.random() * enumValues.length);
@@ -44,6 +50,6 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    // close Prisma Client at the end
+    // close Prisma Client at the end!
     await prisma.$disconnect();
   });

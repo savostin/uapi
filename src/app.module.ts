@@ -7,6 +7,16 @@ import { UsersModule } from './users/users.module';
 import { join } from 'path';
 import { GraphQLFormattedError } from 'graphql';
 
+/**
+ * App main module
+ * Uses GraphQL typings auto-generator
+ * Runs UsersModule
+ * TODO: add other modules (automatically?)
+ *
+ * @export
+ * @class AppModule
+ * @typedef {AppModule}
+ */
 @Module({
   imports: [
     ConfigModule.forRoot(),
